@@ -25,9 +25,12 @@
 normaliseImages.py
 *.keras
 *.png
+*.txt
 
 # Logs and databases #
 ######################
+/Logs_unbalanced
+/Logs_balanced
 *.log
 *.sql
 *.sqlite
