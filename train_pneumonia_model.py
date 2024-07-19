@@ -1,14 +1,11 @@
 import numpy as np
 import os
 import argparse
-import sys
-import keras
-import tensorflow as tf
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import LearningRateScheduler, EarlyStopping, LambdaCallback
+from tensorflow.keras.preprocessing.image import ImageDataGenerator # type: ignore
+from tensorflow.keras.models import Sequential # type: ignore
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization # type: ignore
+from tensorflow.keras.optimizers import Adam # type: ignore
+from tensorflow.keras.callbacks import LearningRateScheduler, EarlyStopping, LambdaCallback # type: ignore
 import logging
 from sklearn.utils import class_weight
 

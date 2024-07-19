@@ -1,5 +1,5 @@
-from tensorflow.keras.models import load_model
-from tensorflow.keras.utils import plot_model
+from tensorflow.keras.models import load_model # type: ignore
+from tensorflow.keras.utils import plot_model # type: ignore
 
 # Load the trained model
 model = load_model('D:\\xray_classification_model\\pneumonia_classification_model.keras')
