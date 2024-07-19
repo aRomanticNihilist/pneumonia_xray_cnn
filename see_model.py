@@ -12,4 +12,3 @@ print(model.layers[0].get_config())
 
 # Save model architecture diagram
 plot_model(model, to_file='model.png', show_shapes=True)
-# Test accuracy: 0.6661290526390076

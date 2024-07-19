@@ -1,6 +1,7 @@
 import os
 import re
 import numpy as np
+import matplotlib.pyplot as plt
 
 def parse_log_files(log_dir, log_prefix, num_logs):
     # Initialize lists to store the final epoch metrics for each run
@@ -48,14 +49,6 @@ def parse_log_files(log_dir, log_prefix, num_logs):
     avg_test_acc = np.mean(test_accs)
     avg_test_loss = np.mean(test_losses)
 
-    # Print the averages
-    print(f'Average Training Loss: {avg_train_loss}')
-    print(f'Average Validation Loss: {avg_val_loss}')
-    print(f'Average Training Accuracy: {avg_train_acc}')
-    print(f'Average Validation Accuracy: {avg_val_acc}')
-    print(f'Average Test Accuracy: {avg_test_acc}')
-    print(f'Average Test Loss: {avg_test_loss}')
-
     return {
         'avg_train_loss': avg_train_loss,
         'avg_val_loss': avg_val_loss,
@@ -65,9 +58,49 @@ def parse_log_files(log_dir, log_prefix, num_logs):
         'avg_test_loss': avg_test_loss
     }
 
-# Example usage
-log_dir = 'D:\\xray_classification_model\\Logs_unbalanced'
+def plot_metrics(metrics_unbalanced, metrics_balanced):
+    labels = ['Training Loss', 'Validation Loss', 'Training Accuracy', 'Validation Accuracy', 'Test Accuracy', 'Test Loss']
+    unbalanced_values = [metrics_unbalanced['avg_train_loss'], metrics_unbalanced['avg_val_loss'], metrics_unbalanced['avg_train_acc'], metrics_unbalanced['avg_val_acc'], metrics_unbalanced['avg_test_acc'], metrics_unbalanced['avg_test_loss']]
+    balanced_values = [metrics_balanced['avg_train_loss'], metrics_balanced['avg_val_loss'], metrics_balanced['avg_train_acc'], metrics_balanced['avg_val_acc'], metrics_balanced['avg_test_acc'], metrics_balanced['avg_test_loss']]
+
+    x = np.arange(len(labels))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(12, 6))
+    rects1 = ax.bar(x - width/2, unbalanced_values, width, label='Unbalanced')
+    rects2 = ax.bar(x + width/2, balanced_values, width, label='Balanced')
+
+    ax.set_ylabel('Values')
+    ax.set_title('Metrics by Unbalanced and Balanced Class Weights')
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
+
+    def autolabel(rects):
+        for rect in rects:
+            height = rect.get_height()
+            ax.annotate('{}'.format(round(height, 2)),
+                        xy=(rect.get_x() + rect.get_width() / 2, height),
+                        xytext=(0, 3),
+                        textcoords="offset points",
+                        ha='center', va='bottom')
+
+    autolabel(rects1)
+    autolabel(rects2)
+
+    fig.tight_layout()
+    plt.show()
+
+log_dir_unbalanced = 'D:\\xray_classification_model\\Logs_unbalanced'
+log_dir_balanced = 'D:\\xray_classification_model\\Logs_balanced'
+
 log_prefix = 'training_log'
 num_logs = 10
 
-metrics = parse_log_files(log_dir, log_prefix, num_logs)
+metrics_unbalanced = parse_log_files(log_dir_unbalanced, log_prefix, num_logs)
+metrics_balanced = parse_log_files(log_dir_balanced, log_prefix, num_logs)
+
+# Plot the metrics for comparison
+plot_metrics(metrics_unbalanced, metrics_balanced)
+
+

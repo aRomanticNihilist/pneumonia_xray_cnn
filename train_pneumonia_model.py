@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import argparse
+import sys
 import keras
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -11,9 +12,9 @@ from tensorflow.keras.callbacks import LearningRateScheduler, EarlyStopping, Lam
 import logging
 from sklearn.utils import class_weight
 
-# Argument parser for log file
+# Argument parser
 parser = argparse.ArgumentParser()
-parser.add_argument('--log_file', type=str, required=True, help='Log file path')
+parser.add_argument('--log_file', type=str, required=True, help='Log file to store output')
 args = parser.parse_args()
 
 # Setup logging
