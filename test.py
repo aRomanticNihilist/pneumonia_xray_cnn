@@ -5,12 +5,10 @@ from tensorflow.keras.models import load_model
 
 # Load and preprocess an image
 def preprocess_image(image_path):
-    img = load_img(
-        image_path, target_size=(150, 150)
-    )  # Adjust the target size as per your model input
+    img = load_img(image_path, target_size=(150, 150))
     img_array = img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
-    img_array /= 255.0  # Rescale as you did for training
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array /= 255.0
     return img_array
 
 
